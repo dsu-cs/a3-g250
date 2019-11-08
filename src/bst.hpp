@@ -41,7 +41,8 @@ private:
     Node<T> *root;
     // the number of nodes in the tree
     int node_count;
-    //Node<T> *inserthelper(T);
+    
+    Node<T>*inserthelper(T, Node<T> *node);
 };
 
 template<class T>
@@ -166,11 +167,11 @@ Node<T> *BST<T>::search(T val)
     }
     else
     {
-        if(root->get_data > val)
+        if(root->get_data() > val)
         {
             return search(root->get_left(), val);
         }
-        else(root->get_data < val)
+        else(root->get_data() < val)
         {
             return search(root->get_right(), val);
         }
@@ -255,7 +256,10 @@ int BST<T>::get_size()
     }
     else
     {
-        
+        int i = get_size(root->get_left();
+        int x = get_size(root->get_right();
+        int k = x + i + 1;
+        return k;
     }
     
 }
