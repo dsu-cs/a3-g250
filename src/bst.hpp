@@ -43,6 +43,8 @@ private:
     int node_count;
     
     Node<T>*inserthelper(T, Node<T> *node);
+    
+    Node<T>*findmin(Node<T>* node);
 };
 
 template<class T>
@@ -128,10 +130,10 @@ void BST<T>::insert(T new_data)
 template<class T>
 Node<T> *BST<T>::inserthelper(T new_data, Node<T>* node)
 {
-    Node<T> *tmp;
-    Node<T> *tmp2;
+    Node<T> *tmp = new Node<T>;
+    
 
-    if(root == NULL)
+    if(node == NULL)
     {
         tmp->set_data(new_data);
         tmp->set_left(NULL);
@@ -143,21 +145,20 @@ Node<T> *BST<T>::inserthelper(T new_data, Node<T>* node)
         
         if(tmp->get_data() > new_data)
         {
-            root->set_left(inserthelper( new_data, root->get_left()));
-
-            
+            node->set_left(inserthelper( new_data, node->get_left()));
         }
         else
         {
-          
+            node->set_right(inserthelper( new_data, node->get_right()));
         }
+    }
     
 }
 
 template<class T>
 Node<T> *BST<T>::search(T val)
 {
-     if( root == NULL)
+    /* if( root == NULL)
     {
         return NULL;
     }
@@ -176,7 +177,7 @@ Node<T> *BST<T>::search(T val)
             return search(root->get_right(), val);
         }
         
-    }
+    }*/
     
 
 }
@@ -187,7 +188,7 @@ template<class T>
 void BST<T>::remove(T val)
 {
     
-
+    /*
     if(root == NULL)
     {
         return;
@@ -230,20 +231,27 @@ void BST<T>::remove(T val)
             root = tmp3;
             root->set_right(remove(root->get_right(), tmp3->get_data()));
         }
-        
-    }
+        }
+        */
+    
     
 }
+
 template<class T>
-int BST<T>::findmin(Node *root)
+Node<T> *BST<T>::findmin(Node<T>* node)
 {
+    node = root;
    if (root == NULL) {
-      return NULL;
+        return NULL;
    }
-   if (root->get_left() != NULL) {
-      return FindMin(root->get_left());
+   else if (node->get_left() != NULL) {
+        return FindMin(node->get_left());
    }
-   return root->get_data();
+   else
+   {
+       return node->get_data();
+   }
+   
 }
 
 
@@ -256,10 +264,10 @@ int BST<T>::get_size()
     }
     else
     {
-        int i = get_size(root->get_left();
-        int x = get_size(root->get_right();
-        int k = x + i + 1;
-        return k;
+        //int i = get_size(root->get_left();
+       // int x = get_size(root->get_right();
+//int k = x + i + 1;
+       // return k;
     }
     
 }
