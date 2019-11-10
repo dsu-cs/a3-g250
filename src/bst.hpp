@@ -45,6 +45,7 @@ private:
     Node<T>*inserthelper(T, Node<T> *node);
     Node<T>*searchhelper(T, Node<T>* node);
     Node<T>*removehelper(T, Node<T>* node);
+    int sizehelper(Node<T>* node);
     
     //Node<T>*findmin(Node<T>* node);
 };
@@ -199,88 +200,75 @@ void BST<T>::remove(T val)
 template<class T>
 Node<T> *BST<T>::removehelper(T val, Node<T>* node)
 {
+    
+    Node<T> *tmp1;
 
-    /*if(root == NULL)
+    if(node == NULL)
+    {
+        return NULL;
+    }
+    else if(node->get_data() > val)
+    {
+        node->set_left(removehelper(val, node->get_left()));
+    }
+    else if(node->get_data() < val)
+    {
+        node->set_right(removehelper(val, node->get_right()));
+    }
+    else
+    {
+        if(node->get_left() == NULL && node->get_right() == NULL)
         {
-            return;
+            delete node;
+            node = NULL;
+            
         }
-        else if(root->get_data() > val)
+        else if(node->get_left() == NULL)
         {
-            root->set_left(remove(root->get_left(), val));
+            Node<T> *tmp = node;
+            node = node->get_right();
+            delete tmp;
+            
+
         }
-        else if(root->get_data() < val)
+        else if(node->get_right() == NULL)
         {
-            root->set_right(remove(root->get_right(), val));
+            Node<T> *tmp = node;
+            node = node->get_left();
+            delete tmp;
+            
+
         }
         else
         {
-            if(root->get_left() == NULL && root->get_right() == NULL)
-            {
-                delete root;
-                root = NULL;
-                
-            }
-            else if(root->get_left() == NULL)
-            {
-                Node<T> *tmp = root;
-                root = root->get_right();
-                delete tmp;
-                
+            //duplicates
+            //node = tmp1;
+           // node->set_right(removehelper(val, node->get_right()));
+        }
+        } 
 
-            }
-            else if(root->get_right() == NULL)
-            {
-                Node<T> *tmp2 = root;
-                root = root->get_left();
-                delete tmp;
-                
-
-            }
-            else
-            {
-                Node<T> *tmp3 = findmin(root->get_right());
-                root = tmp3;
-                root->set_right(remove(root->get_right(), tmp3->get_data()));
-            }
-            } 
-
-*/
-
-
-
+    return node;
 
 }
-/*template<class T>
-Node<T> *BST<T>::findmin(Node<T>* node)
-{
-    node = root;
-   if (root == NULL) {
-        return NULL;
-   }
-   else if (node->get_left() != NULL) {
-        return FindMin(node->get_left());
-   }
-   else
-   {
-       return node->get_data();
-   }
-   
-}*/
-
 
 template<class T>
 int BST<T>::get_size()
 {
-     if(root == NULL)
+    Node<T>* node = root;
+    return sizehelper(node);
+}
+template<class T>
+int BST<T>::sizehelper(Node<T>* node)
+{
+    if(root == NULL)
     {
         return 0;
     }
     else
     {
-        //int i = get_size(root->get_left();
-       // int x = get_size(root->get_right();
-//int k = x + i + 1;
-       // return k;
+    int i = sizehelper(node->get_left());
+    int x = sizehelper(node->get_right());
+    int k = x + i + 1;
+    return k;
     }
-    
 }
