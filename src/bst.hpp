@@ -46,7 +46,9 @@ private:
     Node<T>*searchhelper(T, Node<T>* node);
     Node<T>*removehelper(T, Node<T>* node);
     int sizehelper(Node<T>* node);
-    
+    std::vector<T> *inorderhelper(Node<T>* node, std::vector<T> *vec);
+    std::vector<T> *preorderhelper(Node<T>* node, std::vector<T> *vec);
+    std::vector<T> *postorderhelper(Node<T>* node, std::vector<T> *vec);
     //Node<T>*findmin(Node<T>* node);
 };
 
@@ -71,19 +73,34 @@ template<class T>
   std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
+
+    vec = inorderhelper(root, vec);
     
-    if( root == NULL)
+    return vec;
+}
+template<class T>
+  std::vector<T> * BST<T>::inorderhelper(Node<T>* node, std::vector<T> *vec)
+{
+    
+    if( node == NULL)
     {
-        return 0;
+        return NULL; 
     }
     else
     {
-        /*inorder(root->get_left());
-        cout << root->get_data << " "; 
-        inorder(root->get_right());*/
-    }
+        
+        inorderhelper(node->get_left(), vec);
+
+        vec->push_back(node->get_data());
+
+        inorderhelper(node->get_right(), vec);
+    
     return vec;
+    }
 }
+
+
+
 
 
 template<class T>
@@ -91,38 +108,61 @@ template<class T>
 {
     std::vector<T> *vec = new std::vector<T>;
 
-     if( root == NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        /*cout << root->get_data << " "; 
-        preorder(root->get_left());
-        preorder(root->get_right());*/
-    }
+    vec = preorderhelper(root, vec);
+
     return vec;
 }
 
+template<class T>
+  std::vector<T> * BST<T>::preorderhelper(Node<T>* node, std::vector<T> *vec)
+{
+    
+    if( node == NULL)
+    {
+        return NULL; 
+    }
+    else
+    {
+        vec->push_back(node->get_data());
+
+        preorderhelper(node->get_left(), vec);
+
+        preorderhelper(node->get_right(), vec);
+    
+    return vec;
+    }
+}
 
 template<class T>
  std::vector<T> * BST<T>::postorder()
 {
     std::vector<T> *vec = new std::vector<T>;
 
-     if( root == NULL)
-    {
-        return 0;
-    }
-    else
-    {   
-        /*postorder(root->get_left());
-        postorder(root->get_right());
-        vec = root->get_data << " "; */
-    }
-    
+    vec = postorderhelper(root, vec);
 
     return vec;
+}
+
+template<class T>
+  std::vector<T> * BST<T>::postorderhelper(Node<T>* node, std::vector<T> *vec)
+{
+    
+    if( node == NULL)
+    {
+        return NULL; 
+    }
+    else
+    {
+        
+
+        postorderhelper(node->get_left(), vec);
+        
+        postorderhelper(node->get_right(), vec);
+
+        vec->push_back(node->get_data());
+
+    return vec;
+    }
 }
 
 template<class T>
