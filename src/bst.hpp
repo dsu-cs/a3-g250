@@ -236,14 +236,6 @@ void BST<T>::remove(T val)
 template<class T>
 Node<T> *BST<T>::removehelper(T val, Node<T>* node)
 {
-    
-   // Node<T> *tmp1 = findmin(node->get_right());
-
-
-    //Node<T> *tmp1;
-   // Node<T> *tmp2;
-
-
     if(node == NULL)
     {
         return NULL;
