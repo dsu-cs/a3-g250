@@ -49,7 +49,7 @@ private:
     std::vector<T> *inorderhelper(Node<T>* node, std::vector<T> *vec);
     std::vector<T> *preorderhelper(Node<T>* node, std::vector<T> *vec);
     std::vector<T> *postorderhelper(Node<T>* node, std::vector<T> *vec);
-    //Node<T>*findmin(Node<T>* node);
+    Node<T>*findmin(Node<T>* node);
 };
 
 template<class T>
@@ -237,7 +237,12 @@ template<class T>
 Node<T> *BST<T>::removehelper(T val, Node<T>* node)
 {
     
-    Node<T> *tmp1;
+   // Node<T> *tmp1 = findmin(node->get_right());
+
+
+    //Node<T> *tmp1;
+   // Node<T> *tmp2;
+
 
     if(node == NULL)
     {
@@ -251,6 +256,7 @@ Node<T> *BST<T>::removehelper(T val, Node<T>* node)
     {
         node->set_right(removehelper(val, node->get_right()));
     }
+
     else
     {
         if(node->get_left() == NULL && node->get_right() == NULL)
@@ -277,14 +283,44 @@ Node<T> *BST<T>::removehelper(T val, Node<T>* node)
         }
         else
         {
-            //duplicates
-            //node = tmp1;
-           // node->set_right(removehelper(val, node->get_right()));
+            Node<T> *tmp1;
+            tmp1 = findmin(node->get_right());
+            node->set_data(tmp1->get_data()); 
+            node->set_right(removehelper(tmp1->get_data(), node->get_right()));
+
+            /*Node<T> *tmp;
+            
+            tmp = node->get_right(); 
+            
+            while(tmp->get_left() != NULL)
+            {
+                tmp = tmp->get_left();
+            }
+            node = tmp;
+            removehelper(val, node);*/
+            
         }
         } 
 
     return node;
 
+}
+
+template<class T>	
+Node<T> *BST<T>::findmin(Node<T>* node)	
+{	
+    	
+   if (node == NULL) {	
+        return NULL;	
+   }	
+   else if (node->get_left() != NULL) {	
+        return findmin(node->get_left());	
+   }	
+   else	
+   {	
+       return node;	
+   }	
+   	
 }
 
 template<class T>
