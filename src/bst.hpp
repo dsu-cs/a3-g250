@@ -99,10 +99,6 @@ template<class T>
     }
 }
 
-
-
-
-
 template<class T>
  std::vector<T> * BST<T>::preorder()
 {
@@ -187,7 +183,7 @@ Node<T> *BST<T>::inserthelper(T new_data, Node<T>* node)
     else 
     {
         
-        if(tmp->get_data() > new_data)
+        if(node->get_data() > new_data)
         {
             node->set_left(inserthelper( new_data, node->get_left()));
         }
@@ -294,21 +290,27 @@ Node<T> *BST<T>::removehelper(T val, Node<T>* node)
 template<class T>
 int BST<T>::get_size()
 {
-    Node<T>* node = root;
-    return sizehelper(node);
+    return sizehelper(root);
 }
 template<class T>
 int BST<T>::sizehelper(Node<T>* node)
 {
-    if(root == NULL)
+    int i, k, x;
+    
+    if(node == NULL)
     {
         return 0;
     }
     else
     {
-    int i = sizehelper(node->get_left());
-    int x = sizehelper(node->get_right());
-    int k = x + i + 1;
-    return k;
+        x = sizehelper(node->get_left());
+    
+        k = sizehelper(node->get_right());
+
+        i = x + k;
+
+        return i + 1;
+
+        
     }
 }
