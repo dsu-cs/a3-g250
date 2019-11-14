@@ -9,7 +9,7 @@ class Node{
     public:
        Node(void);
        Node(T &data);
-       void set_data(T &new_data);
+       void set_data(T new_data);
        void set_left(Node<T> *left_node);
        void set_right(Node<T> *right_node);
        T get_data(void);
@@ -34,7 +34,7 @@ Node<T>::Node(T &new_data)
 }
 
 template<class T>
-void Node<T>::set_data(T &new_data)
+void Node<T>::set_data(T new_data)
 {
     data = new_data;
 }
